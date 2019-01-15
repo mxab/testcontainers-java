@@ -29,4 +29,15 @@ public class MultiplePortsExposedTest {
     public void fetchFirstMappedPort() {
         Integer firstMappedPort = container.getFirstMappedPort();
     }
+
+    @Test
+    public void getContainerIpAddressOnly() {
+        String ipAddress = container.getContainerIpAddress();
+    }
+
+    @Test
+    public void getContainerIpAddressAndMappedPort() {
+        String address =
+            container.getContainerIpAddress() + ":" + container.getMappedPort(2424);
+    }
 }

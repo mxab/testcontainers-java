@@ -35,7 +35,20 @@ There is also a `getFirstMappedPort` method for convenience, for the fairly comm
 
 ## Getting the container IP address
 
-> TODO draft content
+When running with a local Docker daemon, exposed ports will usually be reachable on `localhost`.
+However, in some CI environments they may instead be reachable on a different host.
+
+As such, Testcontainers provides a convenience method to obtain an IP address on which the container should be reachable from the host machine.
+
+<!--codeinclude-->
+[Getting the container IP address](../example/src/test/java/generic/MultiplePortsExposedTest.java) inside_block:getContainerIpAddressOnly
+<!--/codeinclude-->
+
+It is normally advisable to use `getContainerIpAddress` and `getMappedPort` together when constructing addresses - for example:
+
+<!--codeinclude-->
+[Getting the container IP address and mapped port](../example/src/test/java/generic/MultiplePortsExposedTest.java) inside_block:getContainerIpAddressAndMappedPort
+<!--/codeinclude-->
 
 ## Exposing host ports to the container
 
