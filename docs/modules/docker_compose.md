@@ -1,4 +1,4 @@
-# Docker Module
+# Docker Compose Module
 
 > TODO convert examples
 
@@ -126,7 +126,8 @@ There are 3 ways to specify location of the `config.json` for Docker Compose
 * Don't specify anything, in this case default location `$HOME/.docker/config.json`, if present, will be used 
 
 ####Note to OSX users
-By default, Docker for mac uses Keychain to store private repositories' keys. So, your `config.json` looks like
+By default, Docker for mac uses Keychain to store private repositories' keys. So, your `config.json` looks like:
+
 ```$json
 {
   "auths" : {
