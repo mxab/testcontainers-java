@@ -114,43 +114,51 @@ public static DockerComposeContainer environment =
 When Docker Compose is used in container mode (not local), it's needs to be made aware of Docker settings for private repositories. 
 By default, those setting are located in `$HOME/.docker/config.json`. 
 
-There are 3 ways to specify location of the `config.json` for Docker Compose
+There are 3 ways to specify location of the `config.json` for Docker Compose:
+
 * Use `DOCKER_CONFIG_FILE` environment variable. 
 
-    `export DOCKER_CONFIG_FILE=/some/location/config.json` 
+    `export DOCKER_CONFIG_FILE=/some/location/config.json`
 
 * Use `dockerConfigFile` java property
     
     `java -DdockerConfigFile=/some/location/config.json`
 
-* Don't specify anything, in this case default location `$HOME/.docker/config.json`, if present, will be used 
+* Don't specify anything. In this case default location `$HOME/.docker/config.json`, if present, will be used.
 
-####Note to OSX users
-By default, Docker for mac uses Keychain to store private repositories' keys. So, your `config.json` looks like:
-
-```$json
-{
-  "auths" : {
-    "https://index.docker.io/v1/" : {
+!!! note "Docker Compose and Credential Store / Credential Helpers"
+    Modern Docker tends to store credentials using the credential store/helper mechanism rather than storing credentials in Docker's configuration file. So, your `config.json` may look something like:
+    
+    ```json
+    {
+      "auths" : {
+        "https://index.docker.io/v1/" : {
+        }
+      },
+      "credsStore" : "osxkeychain"
     }
-  },
-  "credsStore" : "osxkeychain"
-}
-```
-
-Docker Compose in container cannot access the Keychain, thus making the configuration useless. 
-To work around this problem, create `config.json` in separate location with real authentication keys, like 
-```$json
-{
-  "auths" : {
-    "https://index.docker.io/v1/" : {
-     "auth": "QWEADSZXC..."
+    ```
+    
+    When run inside a container, Docker Compose cannot access the Keychain, thus making the configuration useless. 
+    To work around this problem, there are two options:
+    
+    ##### Putting auths in a config file
+    Create a `config.json` in separate location with real authentication keys, like:
+    
+    ```json
+    {
+      "auths" : {
+        "https://index.docker.io/v1/" : {
+         "auth": "QWEADSZXC..."
+        }
+      },
+      "credsStore" : "osxkeychain"
     }
-  },
-  "credsStore" : "osxkeychain"
-}
-```
-and specify the location to Testcontainers using any of the two first methods from above. 
+    ```
+    and specify the location to Testcontainers using any of the two first methods from above.
+    
+    ##### Using 'local compose' mode
+    You can override Testcontainers' default behaviour and make it use a `docker-compose` binary installed on the local machine. While this means that Docker Compose needs to be present on dev and CI machines, it will allow it to directly access the Docker auth system (to the same extent that running the `docker-compose` CLI manually works).
 
 ## Adding this module to your project dependencies
 
