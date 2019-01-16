@@ -36,7 +36,6 @@ nav:
           - features/configuration.md
           - features/advanced_options.md
     - Modules:
-          - modules/index.md
           - Databases:
                 - modules/databases/index.md
                 - modules/databases/mysql.md
