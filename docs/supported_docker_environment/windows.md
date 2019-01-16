@@ -1,4 +1,4 @@
-# Windows Support (Alpha)
+# Windows Support
 
 ## Prerequisites
 * [Docker for Windows](https://docs.docker.com/docker-for-windows/) needs to be installed
