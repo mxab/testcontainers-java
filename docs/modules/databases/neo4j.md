@@ -13,7 +13,7 @@ On the JVM you would most likely use the [Java driver](https://github.com/neo4j/
 
 The following example uses the JUnit 5 extension `@Testcontainers` and demonstrates both the usage of the Java Driver and the REST endpoint:
 
-```java
+```java tab="JUnit 5 example"
 @Testcontainers
 public class ExampleTest {
 
