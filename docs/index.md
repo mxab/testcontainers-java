@@ -1,26 +1,57 @@
 # Testcontainers
 
-!!! note ""
-    Testcontainers is a Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
-
 ![Testcontainers logo](./logo.png)
 
-### Prerequisites
+## About
 
-Docker or docker-machine (for OS X) must be installed on the machine you are running tests on. Testcontainers currently requires JDK 1.8 and is compatible with JUnit.
+Testcontainers is a Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
 
-If you want to use Testcontainers on Windows you can try the [alpha release](supported_docker_environment/windows.md).
-
-
-
-## Use Cases
-
-Testcontainers makes it easy to launch useful Docker containers for the duration of JUnit tests.
+Testcontainers make the following kinds of tests easier:
 
  * **Data access layer integration tests**: use a containerized instance of a MySQL, PostgreSQL or Oracle database to test your data access layer code for complete compatibility, but without requiring complex setup on developers' machines and safe in the knowledge that your tests will always start with a known DB state. Any other database type that can be containerized can also be used.
  * **Application integration tests**: for running your application in a short-lived test mode with dependencies, such as databases, message queues or web servers.
  * **UI/Acceptance tests**: use containerized web browsers, compatible with Selenium, for conducting automated UI tests. Each test can get a fresh instance of the browser, with no browser state, plugin variations or automated browser upgrades to worry about. And you get a video recording of each test session, or just each session where tests failed.
  * **Much more!** Check out the various [contributed modules](modules/) or create your own custom container classes using [`GenericContainer`](features/creating_container.md) as a base.
+
+## Prerequisites
+
+* Docker - please see [General Docker requirements](supported_docker_environment/index.md)
+* A supported JVM testing framework:
+    * [JUnit 4](test_framework_integration/junit_4.md) - See the [JUnit 4 Quickstart Guide](quickstart/junit_4_quickstart.md)
+    * [Jupiter/JUnit 5](test_framework_integration/junit_5.md)
+    * [Spock](test_framework_integration/spock.md)
+    * *Or* manually add code to control the container/test lifecycle (See [hints for this approach](test_framework_integration/junit_4.md#manually-controlling-container-lifecycle)
+
+## Maven dependencies
+
+Testcontainers is distributed as separate JARs with a common version number:
+
+* A core JAR file for core functionality, generic containers and docker-compose support
+* A separate JAR file for each of the specialised [modules](modules). Each module's documentation describes the Maven/Gradle dependency to add to your project's build.
+
+For the core library, the latest Maven/Gradle dependency is as follows: 
+
+```xml tab='Maven'
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>testcontainers</artifactId>
+    <version>{{latest_version}}</version>
+    <scope>test</scope>
+</dependency>
+```
+
+```groovy tab='Gradle'
+testRuntime "org.testcontainers:testcontainers:{{latest_version}}"
+```
+
+You can also [check the latest version available on Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.testcontainers%22).
+
+[JitPack](jitpack_dependencies.md) builds are available for pre-release versions.
+
+!!! warning "Shaded dependencies"
+    Testcontainers uses the docker-java client library, which in turn depends on JAX-RS, Jersey and Jackson libraries. 
+    These libraries in particular seem to be especially prone to conflicts with test code/application under test code. 
+    As such, **these libraries are 'shaded' into the core testcontainers JAR** and relocated under `org.testcontainers.shaded` to prevent class conflicts.
 
 ## Who is using Testcontainers?
 
@@ -40,58 +71,6 @@ Testcontainers makes it easy to launch useful Docker containers for the duration
  * [Skyscanner](https://www.skyscanner.net/) - Integration testing against HTTP service mocks and various data stores
  * [Neo4j-OGM](https://neo4j.com/developer/neo4j-ogm/) - Testing new, reactive client implementations
 
-## Maven dependencies
-
-Testcontainers is distributed in a handful of Maven modules:
-
-* **testcontainers** for just core functionality, generic containers and docker-compose support
-* **mysql**, **postgresql** or **oracle-xe** for database container support
-* **selenium** for selenium/webdriver support
-* **nginx** for nginx container support
-
-In the dependency description below, replace `--artifact name--` as appropriate and `--latest version--` with the [latest version available on Maven Central](https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.testcontainers%22):
-
-```
-<dependency>
-    <groupId>org.testcontainers</groupId>
-    <artifactId>--artifact name--</artifactId>
-    <version>--latest version--</version>
-</dependency>
-```
-
-### JitPack (unreleased versions)
-
-Alternatively, if you like to live on the bleeding edge, jitpack.io can be used to obtain SNAPSHOT versions.
-Use the following dependency description instead:
-
-```
-<dependency>
-    <groupId>com.github.testcontainers.testcontainers-java</groupId>
-    <artifactId>--artifact name--</artifactId>
-    <version>-SNAPSHOT</version>
-</dependency>
-```
-
-A specific git revision (such as `093a3a4628`) can be used as a fixed version instead. The JitPack maven repository must also be declared, e.g.:
-
-```
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-```
-	
-The [testcontainers examples project](https://github.com/testcontainers/testcontainers-java-examples) uses JitPack to fetch the latest, master version.
-
-### Shaded dependencies
-
-**Note**: Testcontainers uses the docker-java client library, which in turn depends on JAX-RS, Jersey and Jackson
-libraries. These libraries in particular seem to be especially prone to conflicts with test code/applciation under test
- code. As such, **these libraries are 'shaded' into the core testcontainers JAR** and relocated
- under `org.testcontainers.shaded` to prevent class conflicts.
-
 ## License
 
 See [LICENSE](https://raw.githubusercontent.com/testcontainers/testcontainers-java/master/LICENSE).
@@ -108,14 +87,14 @@ This project was initially inspired by a [gist](https://gist.github.com/mosheesh
 * Join our Slack: http://slack.testcontainers.org
 * [Post an issue](https://github.com/testcontainers/testcontainers-java/issues) if you find any bugs
 * Contribute improvements or fixes using a [Pull Request](https://github.com/testcontainers/testcontainers-java/pulls). If you're going to contribute, thank you! Please just be sure to:
-	* discuss with the authors on an issue ticket prior to doing anything big
-	* follow the style, naming and structure conventions of the rest of the project
-	* make commits atomic and easy to merge
-	* verify all tests are passing. Build the project with `./gradlew check` to do this.
-	**N.B.** Gradle's Build Cache is enabled by default, but you can add `--no-build-cache` flag to disable it.
+    * discuss with the authors on an issue ticket prior to doing anything big
+    * follow the style, naming and structure conventions of the rest of the project
+    * make commits atomic and easy to merge
+    * verify all tests are passing. Build the project with `./gradlew check` to do this.
+    **N.B.** Gradle's Build Cache is enabled by default, but you can add `--no-build-cache` flag to disable it.
 
 ## Copyright
 
-Copyright (c) 2015, 2016 Richard North and other authors.
+Copyright (c) 2015-2019 Richard North and other authors.
 
 See [AUTHORS](https://raw.githubusercontent.com/testcontainers/testcontainers-java/master/AUTHORS) for contributors.
