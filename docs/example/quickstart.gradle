@@ -1,6 +1,0 @@
-dependencies {
-    compile "io.lettuce:lettuce-core:5.1.1.RELEASE"
-
-    testCompile "junit:junit:4.12"
-    testCompile "org.testcontainers:testcontainers:1.9.1"
-}

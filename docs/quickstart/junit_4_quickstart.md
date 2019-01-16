@@ -22,10 +22,18 @@ Let's start from here, and see how to improve the test with Testcontainers:
 
 First, add Testcontainers as a dependency as follows:
 
-<!--codeinclude-->
-[Gradle](../example/quickstart.gradle) block:dependencies
-[Maven](../example/pom.xml) lines:3-10
-<!--/codeinclude-->
+```xml tab='Maven'
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>testcontainers</artifactId>
+    <version>{{latest_version}}</version>
+    <scope>test</scope>
+</dependency>
+```
+
+```groovy tab='Gradle'
+testRuntime "org.testcontainers:testcontainers:{{latest_version}}"
+```
 
 ## 2. Get Testcontainers to run a Redis container during our tests
 

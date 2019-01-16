@@ -1,4 +1,8 @@
 description = "Examples for docs"
 
-apply from: "$projectDir/quickstart.gradle"
+dependencies {
+    compile "io.lettuce:lettuce-core:5.1.1.RELEASE"
 
+    testCompile "junit:junit:4.12"
+    project(":testcontainers")
+}
