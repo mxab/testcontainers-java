@@ -48,3 +48,20 @@ other advanced features), you can use this instead:
 // Create the elasticsearch container.
 ElasticsearchContainer container = new ElasticsearchContainer("docker.elastic.co/elasticsearch/elasticsearch-oss:6.4.1");
 ```
+
+## Adding this module to your project dependencies
+
+Add the following dependency to your `pom.xml`/`build.gradle` file:
+
+```xml tab='Maven'
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>elasticsearch</artifactId>
+    <version>{{latest_version}}</version>
+    <scope>test</scope>
+</dependency>
+```
+
+```groovy tab='Gradle'
+testRuntime "org.testcontainers:elasticsearch:{{latest_version}}"
+```

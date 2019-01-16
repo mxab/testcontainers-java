@@ -1,22 +1,8 @@
-# Neo4j container
+# Neo4j Module
 
 This module helps running [Neo4j](https://neo4j.com/download/) using Testcontainers.
 
 Note that it's based on the [official Docker image](https://hub.docker.com/_/neo4j/) provided by Neo4j, Inc.
-
-## Dependencies
-
-Add the Neo4j Testcontainer module:
-
-```groovy
-testCompile "org.testcontainers:neo4j"
-```
-
-and the Neo4j Java driver if you plan to access the Testcontainer via Bolt:
-
-```groovy
-compile "org.neo4j.driver:neo4j-java-driver:1.7.1"
-```
 
 ## Usage example
 
@@ -100,3 +86,42 @@ This creates a Testcontainer based on the Docker image build with the Enterprise
 The call to `withEnterpriseEdition` adds the required environment variable that you accepted the terms and condition of the enterprise version.
 You accept those by adding a file named `container-license-acceptance.txt` to the root of your classpath containing the text `neo4j:3.5.0-enterprise` in one line.
 You'll find more information about licensing Neo4j here: [About Neo4j Licenses](https://neo4j.com/licensing/).
+
+
+## Adding this module to your project dependencies
+
+Add the following dependency to your `pom.xml`/`build.gradle` file:
+
+```xml tab='Maven'
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>neo4j</artifactId>
+    <version>{{latest_version}}</version>
+    <scope>test</scope>
+</dependency>
+```
+
+```groovy tab='Gradle'
+testRuntime "org.testcontainers:neo4j:{{latest_version}}"
+```
+
+!!! hint
+    Add the Neo4j Java driver if you plan to access the Testcontainer via Bolt:
+    
+    ```xml tab='Maven'
+    <dependency>
+        <groupId>org.neo4j.driver</groupId>
+        <artifactId>neo4j-java-driver</artifactId>
+        <version>1.7.1</version>
+    </dependency>
+    ```
+    
+    ```groovy tab='Gradle'
+    compile "org.neo4j.driver:neo4j-java-driver:1.7.1"
+    ```
+
+## Attributions and thanks
+
+> TODO
+
+

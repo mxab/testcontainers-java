@@ -94,3 +94,37 @@ Note the factory must implement `org.testcontainers.containers.RecordingFileFact
 ## More examples
 
 A few different examples are shown in [ChromeWebDriverContainerTest.java](https://github.com/testcontainers/testcontainers-java/blob/master/modules/selenium/src/test/java/org/testcontainers/junit/ChromeWebDriverContainerTest.java).
+
+## Adding this module to your project dependencies
+
+Add the following dependency to your `pom.xml`/`build.gradle` file:
+
+```xml tab='Maven'
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>selenium</artifactId>
+    <version>{{latest_version}}</version>
+    <scope>test</scope>
+</dependency>
+```
+
+```groovy tab='Gradle'
+testRuntime "org.testcontainers:selenium:{{latest_version}}"
+```
+
+!!! hint
+    Adding this Testcontainers library JAR will not automatically add a Selenium Webdriver JAR to your project. You should ensure that your project also has suitable Selenium dependencies in place, for example:
+    
+    ```xml tab='Maven'
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-remote-driver</artifactId>
+        <version>3.141.59</version>
+    </dependency>
+    ```
+    
+    ```groovy tab='Gradle'
+    compile "org.seleniumhq.selenium:selenium-remote-driver:3.141.59"
+    ```
+    
+    Testcontainers will try and match the version of the Dockerized browser to whichever version of Selenium is found on the classpath

@@ -1,4 +1,4 @@
-# Docker Compose
+# Docker Module
 
 > TODO convert examples
 
@@ -150,3 +150,20 @@ To work around this problem, create `config.json` in separate location with real
 }
 ```
 and specify the location to Testcontainers using any of the two first methods from above. 
+
+## Adding this module to your project dependencies
+
+Add the following dependency to your `pom.xml`/`build.gradle` file:
+
+```xml tab='Maven'
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>docker-compose</artifactId>
+    <version>{{latest_version}}</version>
+    <scope>test</scope>
+</dependency>
+```
+
+```groovy tab='Gradle'
+testRuntime "org.testcontainers:docker-compose:{{latest_version}}"
+```

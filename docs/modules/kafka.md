@@ -51,3 +51,19 @@ new GenericContainer("myImage").withNetwork(kafka.getNetwork())
 * Use `kafka.getNetworkAliases().get(0)+":9092"` as bootstrap server location. 
 Or just give your Kafka container a network alias of your liking.
 
+## Adding this module to your project dependencies
+
+Add the following dependency to your `pom.xml`/`build.gradle` file:
+
+```xml tab='Maven'
+<dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>kafka</artifactId>
+    <version>{{latest_version}}</version>
+    <scope>test</scope>
+</dependency>
+```
+
+```groovy tab='Gradle'
+testRuntime "org.testcontainers:kafka:{{latest_version}}"
+```
