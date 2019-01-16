@@ -4,6 +4,7 @@ You can override some default properties if your environment requires that.
 
 ## Configuration file location
 The configuration will be loaded from multiple locations. Properties are considered in the following order:
+
 1. `.testcontainers.properties` in user's home folder. Example locations:  
 **Linux:** `/home/myuser/.testcontainers.properties`  
 **Windows:** `C:/Users/myuser/.testcontainers.properties`  
@@ -24,10 +25,14 @@ Before running any containers Testcontainers will perform a set of startup check
 It takes a couple of seconds, but if you want to speed up your tests, you can disable the checks once you have everything configured. Add `checks.disable=true` to your `$HOME/.testcontainers.properties` to completely disable them.
 
 ## Customizing images
+
+Testcontainers uses public Docker images to perform different actions like startup checks, VNC recording and others. 
+Some companies disallow the usage of Docker Hub, but you can override `*.image` properties with your own images from your private registry to workaround that.
+
 > **tinyimage.container.image = alpine:3.5**  
 > Used by Testcontainers' core
 
-> **vncrecorder.container.image = richnorth/vnc-recorder:latest**  
+> **vncrecorder.container.image = quay.io/testcontainers/vnc-recorder:1.1.0**  
 > Used by VNC recorder in Testcontainers' Seleniun integration
 
 > **ambassador.container.image = richnorth/ambassador:latest**  
@@ -42,7 +47,4 @@ It takes a couple of seconds, but if you want to speed up your tests, you can di
 > The resource reaper is responsible for container removal and automatic cleanup of dead containers at JVM shutdown
 > **ryuk.container.privileged = false**
 > In some environments ryuk must be started in privileged mode to work properly (--privileged flag)
-
-Testcontainers uses public Docker images to perform different actions like startup checks, VNC recording and others.  
-Some companies disallow the usage of Docker Hub, but you can override `*.image` properties with your own images from your private registry to workaround that.
 
