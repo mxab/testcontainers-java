@@ -162,17 +162,19 @@ There are 3 ways to specify location of the `config.json` for Docker Compose:
 
 ## Adding this module to your project dependencies
 
+*Docker Compose support is part of the core Testcontainers library.*
+
 Add the following dependency to your `pom.xml`/`build.gradle` file:
 
 ```xml tab='Maven'
 <dependency>
     <groupId>org.testcontainers</groupId>
-    <artifactId>docker-compose</artifactId>
+    <artifactId>testcontainers</artifactId>
     <version>{{latest_version}}</version>
     <scope>test</scope>
 </dependency>
 ```
 
 ```groovy tab='Gradle'
-testRuntime "org.testcontainers:docker-compose:{{latest_version}}"
+testRuntime "org.testcontainers:testcontainers:{{latest_version}}"
 ```
