@@ -37,5 +37,5 @@ file('modules').eachDir { dir ->
     project(":${dir.name}").projectDir = dir
 }
 
-include "docs/example"
-//project(":docs:example").projectDir = file("docs/example")
+include "docs:example"
+project(":docs:example").projectDir = file("docs/example")
