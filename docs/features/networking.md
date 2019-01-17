@@ -52,7 +52,15 @@ It is normally advisable to use `getContainerIpAddress` and `getMappedPort` toge
 
 ## Exposing host ports to the container
 
-> TODO draft content
+<!--codeinclude-->
+[Exposing the host port](../example/src/test/java/generic/HostPortExposedTest.java) inside_block:exposePort
+<!--/codeinclude-->
+
+and then
+
+<!--codeinclude-->
+[Accessing the exposed host port from a container](../example/src/test/java/generic/HostPortExposedTest.java) inside_block:useHostExposedPort
+<!--/codeinclude-->
 
 ## Exposing containers to other containers
 
