@@ -52,15 +52,30 @@ It is normally advisable to use `getContainerIpAddress` and `getMappedPort` toge
 
 ## Exposing host ports to the container
 
+In some cases it is necessary to make a network connection from a container to a socket that is listening on the host machine.
+Natively, Docker has limited support for this model across platforms.
+Testcontainers, however, makes this possible.
+
+In this example, assume that `localServerPort` is a port on our test host machine where a server (e.g. a web application) is running.
+
+We need to tell Testcontainers to prepare to expose this port to containers:
+
 <!--codeinclude-->
 [Exposing the host port](../example/src/test/java/generic/HostPortExposedTest.java) inside_block:exposePort
 <!--/codeinclude-->
 
-and then
+!!! warning
+    Note that the above command should be invoked _before_ containers are started.
+    
+Having done so, we can now access this port from any containers that are launched.
+From a container's perspective, the hostname will be `host.testcontainers.internal` and the port will be the same value as `localServerPort`.
+
+For example, here we construct an HTTP URL for our local web application and tell a Selenium container to get a page from it:
 
 <!--codeinclude-->
 [Accessing the exposed host port from a container](../example/src/test/java/generic/HostPortExposedTest.java) inside_block:useHostExposedPort
 <!--/codeinclude-->
+
 
 ## Exposing containers to other containers
 

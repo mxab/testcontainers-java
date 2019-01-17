@@ -52,7 +52,8 @@ public class HostPortExposedTest {
     @Test
     public void testContainerRunningAgainstExposedHostPort() {
         // useHostExposedPort {
-        final String rootUrl = String.format("http://host.testcontainers.internal:%d/", localServerPort);
+        final String rootUrl =
+            String.format("http://host.testcontainers.internal:%d/", localServerPort);
 
         final RemoteWebDriver webDriver = browser.getWebDriver();
         webDriver.get(rootUrl);
